@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="gal">
+      
+        <div class="display-flex " id="img">
+          <img src="img/herocat.jpg" alt="" v-bind:style="{height: hpcat+'px'}" />
+
+        <img src="img/payut.jpg" alt="" v-bind:style="{height: hpyut+'px'}" />
+        </div>
+
+        <div id="hp">
+          <h1 v-if="hpcat > 0">{{hpcat}}</h1>
+          <h1 v-if="hpcat <= 0">{{hpcat0}}</h1>
+          <h1 v-if="hpyut > 0" >{{hpyut}}</h1>
+          <h1 v-if="hpyut <= 0" >{{hpyut0}}</h1>
+        </div>
+
+        <div id="button">
+          <button @click="dmg(3,10)" v-if="hpcat >0 && hpyut >0" >Attack</button>
+          <button @click="ssdmg(10,20)" v-if="hpcat >0 && hpyut >0">Special Attack</button>
+          <button @click="restart()" v-if="hpcat <=0 || hpyut <=0" >Restart Game</button>
+        </div>
+
+        <div id="texthp">
+          <h1 v-if="hpyut <= 0">Cat WIN</h1>
+          <h1 v-if="hpcat <= 0">Yut WIN</h1>
+        </div>
+
+  
+    </div>
+  </body>
+
+  <script>
+    var cvy = new Vue({
+      el: "#gal",
+      data: {
+        hpcat: 100,
+        hpyut: 100,
+        hpcat0: 0,
+        hpyut0: 0
+      },
+
+      methods: {
+        dmg: function (min, max) {
+          var cat = Math.max(Math.floor(Math.random() * max) + 1, min);
+          this.hpyut -= cat;
+          // botyut
+          var yut = Math.max(Math.floor(Math.random() * 15) + 1, 5);
+          this.hpcat -= yut;
+        },
+
+        ssdmg: function (min, max) {
+          var cat2 = Math.max(Math.floor(Math.random() * max) + 1, min);
+          this.hpyut -= cat2;
+          // botyut
+          var yut2 = Math.max(Math.floor(Math.random() * 15) + 1, 5);
+          this.hpcat -= yut2;
+        },
+
+        restart: function () {
+          this.hpcat = 100
+          this.hpyut = 100
+        }
+      },
+    });
+  </script>
+</html>
